@@ -3,13 +3,13 @@ import React from 'react'
 import { useForm } from 'react-hook-form'
 import * as Yup from 'yup'
 
-import LoginBanner from '../../assets/login-banner.svg'
 import Logo from '../../assets/logo.svg'
+import RegisterBanner from '../../assets/register-banner.svg'
 import Button from '../../components/Button'
 import api from '../../services/api'
 import {
   Container,
-  LoginImage,
+  RegisterImage,
   ContainerItens,
   Label,
   Input,
@@ -17,14 +17,18 @@ import {
   ErrorMensage
 } from './styles'
 
-function Login() {
+function Register() {
   const schema = Yup.object().shape({
+    name: Yup.string().required('O seu nome é obrigatório'),
     email: Yup.string()
       .email('Digite um e-mail válido')
       .required('O e-mail é obrigatorio'),
     password: Yup.string()
       .required('A senha é obrigatoria')
-      .min(6, 'A senha deve ter pelo menos 6 dígitos')
+      .min(6, 'A senha deve ter pelo menos 6 dígitos'),
+    confirmPassword: Yup.string()
+      .required('A senha é obrigatoria')
+      .oneOf([Yup.ref('password')], 'As senhas devem ser iguais')
   })
 
   const {
@@ -34,7 +38,8 @@ function Login() {
   } = useForm({ resolver: yupResolver(schema) })
 
   const onSubmit = async (clientData) => {
-    const response = await api.post('sessions', {
+    const response = await api.post('users', {
+      name: clientData.name,
       email: clientData.email,
       password: clientData.password
     })
@@ -43,11 +48,19 @@ function Login() {
 
   return (
     <Container>
-      <LoginImage src={LoginBanner} alt="login-image" />
+      <RegisterImage src={RegisterBanner} alt="register-image" />
       <ContainerItens>
         <img src={Logo} alt="logo-code-burger" />
         <h1>Login</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
+          <Label>Nome</Label>
+          <Input
+            type="text"
+            {...register('name')}
+            error={errors.name?.message}
+          />
+          <ErrorMensage>{errors.name?.message}</ErrorMensage>
+
           <Label>Email</Label>
           <Input
             type="email"
@@ -64,16 +77,24 @@ function Login() {
           />
           <ErrorMensage>{errors.password?.message}</ErrorMensage>
 
-          <Button style={{ marginTop: 75, marginBottom: 25 }} type="submit">
-            Sign In
+          <Label>Confirmar Senha</Label>
+          <Input
+            type="password"
+            {...register('confirmPassword')}
+            error={errors.confirmPassword?.message}
+          />
+          <ErrorMensage>{errors.confirmPassword?.message}</ErrorMensage>
+
+          <Button style={{ marginTop: 25, marginBottom: 25 }} type="submit">
+            Sign up
           </Button>
         </form>
         <SingInLink>
-          Nâo possui conta ? <a>Sign Up</a>
+          Já possui conta ? <a>Sign In</a>
         </SingInLink>
       </ContainerItens>
     </Container>
   )
 }
 
-export default Login
+export default Register
