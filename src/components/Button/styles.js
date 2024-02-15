@@ -4,8 +4,8 @@ export const ContainerButton = styled.button`
   // layout
   width: 180px;
   height: 38px;
-  margin-top: 75px;
-  margin-bottom: 25px;
+  //margin-top: 75px;
+  //margin-bottom: 25px;
   // style
   background: #9758a6;
   box-shadow: 3px 3px 10px 0px rgba(74, 144, 226, 0.19);

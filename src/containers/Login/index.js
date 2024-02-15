@@ -64,7 +64,9 @@ function Login() {
           />
           <ErrorMensage>{errors.password?.message}</ErrorMensage>
 
-          <Button type="submit">Sign In</Button>
+          <Button style={{ marginTop: 75, marginBottom: 25 }} type="submit">
+            Sign In
+          </Button>
         </form>
         <SingInLink>
           Nâo possui conta ? <a>SignUp</a>
