@@ -9,4 +9,4 @@ function Button({ children, ...props }) {
 
 export default Button
 
-Button.PropTypes = { children: PropTypes.string }
+Button.propTypes = { children: PropTypes.string }
