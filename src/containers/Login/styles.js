@@ -64,32 +64,7 @@ export const Input = styled.input`
   // internally
   padding-left: 10px;
 `
-export const Button = styled.button`
-  // layout
-  width: 180px;
-  height: 38px;
-  margin-top: 75px;
-  margin-bottom: 25px;
-  // style
-  background: #9758a6;
-  box-shadow: 3px 3px 10px 0px rgba(74, 144, 226, 0.19);
-  border-radius: 100px;
-  border: none;
-  &:hover {
-    cursor: pointer;
-    opacity: 0.8;
-  }
-  &:active {
-    opacity: 0.6;
-  }
-  // internally
-  color: #eee;
-  text-align: center;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-`
+
 export const SingInLink = styled.p`
   // typography
   color: #fff;

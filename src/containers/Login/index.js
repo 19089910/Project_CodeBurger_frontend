@@ -5,6 +5,7 @@ import * as Yup from 'yup'
 
 import LoginBanner from '../../assets/login-banner.svg'
 import Logo from '../../assets/logo.svg'
+import Button from '../../components/Button'
 import api from '../../services/api'
 import {
   Container,
@@ -12,7 +13,6 @@ import {
   ContainerItens,
   Label,
   Input,
-  Button,
   SingInLink,
   ErrorMensage
 } from './styles'
