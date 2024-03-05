@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 import * as Yup from 'yup'
 
 import Logo from '../../assets/logo.svg'
@@ -39,12 +40,16 @@ function Register() {
 
   const onSubmit = async (clientData) => {
     try {
-      const response = await api.post('users', {
-        name: clientData.name,
-        email: clientData.email,
-        password: clientData.password
-      })
-      await console.log(response)
+      await api.post(
+        'users',
+        {
+          name: clientData.name,
+          email: clientData.email,
+          password: clientData.password
+        },
+        { validateStatus: () => true }
+      )
+      toast.success('cadastro criado com sucesso')
     } catch (err) {}
   }
 
