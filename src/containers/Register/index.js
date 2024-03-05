@@ -40,7 +40,7 @@ function Register() {
 
   const onSubmit = async (clientData) => {
     try {
-      await api.post(
+      const { status } = await api.post(
         'users',
         {
           name: clientData.name,
@@ -49,8 +49,16 @@ function Register() {
         },
         { validateStatus: () => true }
       )
-      toast.success('cadastro criado com sucesso')
-    } catch (err) {}
+      if (status === 201 || status === 200) {
+        toast.success('cadastro criado com sucesso')
+      } else if (status === 409) {
+        toast.error('E-mail já cadastrado! Faça login para continuar')
+      } else {
+        new Error()
+      }
+    } catch (err) {
+      toast.error('Falha no sistema! Tente novamente')
+    }
   }
 
   return (

@@ -34,6 +34,7 @@
             "react-hooks/rules-of-hooks": "error",
             "react-hooks/exhaustive-deps": "warn",
             "prettier/prettier": "error",
-            "no-unused-vars": "warn"
+            "no-unused-vars": "warn",
+            "no-new": "off"
         }
 }
