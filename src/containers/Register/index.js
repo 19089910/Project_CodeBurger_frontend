@@ -38,12 +38,14 @@ function Register() {
   } = useForm({ resolver: yupResolver(schema) })
 
   const onSubmit = async (clientData) => {
-    const response = await api.post('users', {
-      name: clientData.name,
-      email: clientData.email,
-      password: clientData.password
-    })
-    await console.log(response) // respondeu
+    try {
+      const response = await api.post('users', {
+        name: clientData.name,
+        email: clientData.email,
+        password: clientData.password
+      })
+      await console.log(response)
+    } catch (err) {}
   }
 
   return (

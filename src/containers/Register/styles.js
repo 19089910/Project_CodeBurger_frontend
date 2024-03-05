@@ -44,7 +44,7 @@ export const ContainerItens = styled.div`
 `
 export const Label = styled.p`
   // layout
-  margin-top: ${(props) => (props.error ? '' : '16px')};
+  margin-top: ${(props) => (props.error ? '9px' : '16px')};
   margin-bottom: 5px;
   // typography
   color: #fff;
