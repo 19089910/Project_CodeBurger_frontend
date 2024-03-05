@@ -3,6 +3,7 @@ import React, { createContext, useContext } from 'react'
 
 const UserContext = createContext({})
 // context structure:
+// teg html structure for data transit
 export const UserProvider = ({ children }) => {
   // this example is the data I want to save and make available
   const user = { name: 'lucas', age: 23 }
@@ -14,7 +15,8 @@ export const UserProvider = ({ children }) => {
     </UserContext.Provider>
   )
 }
-// provide the data for the screen containers by invoking the useUser function
+// context provide:
+// the data for the screen containers by invoking the useUser function:
 export const useUser = () => {
   const context = useContext(UserContext)
   // here only if, by some mistake, we invoke useUser and it is empty, it tells the console that the problem is here.
