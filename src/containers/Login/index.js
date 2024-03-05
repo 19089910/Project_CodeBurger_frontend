@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 import * as Yup from 'yup'
 
 import LoginBanner from '../../assets/login-banner.svg'
@@ -34,11 +35,18 @@ function Login() {
   } = useForm({ resolver: yupResolver(schema) })
 
   const onSubmit = async (clientData) => {
-    const response = await api.post('sessions', {
-      email: clientData.email,
-      password: clientData.password
-    })
-    await console.log(response) // respondeu
+    await toast.promise(
+      api.post('sessions', {
+        email: clientData.email,
+        password: clientData.password
+      }),
+      {
+        pending: 'verificando seus dados',
+        success: 'Seja bem-vindo',
+        error: 'virifique seu e-mail e senha'
+      }
+    )
+    // await console.log(response) // respondeu
   }
 
   return (
