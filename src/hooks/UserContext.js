@@ -1,16 +1,18 @@
 import PropTypes from 'prop-types'
-import React, { createContext, useContext } from 'react'
+import React, { createContext, useContext, useState } from 'react'
 
 const UserContext = createContext({})
 // context structure:
 // teg html structure for data transit
 export const UserProvider = ({ children }) => {
-  // this example is the data I want to save and make available
-  const user = { name: 'lucas', age: 23 }
-  const outroUser = { name: 'levi', age: 20 }
-
+  // state variable to serve as temporary storage
+  // so the provider context can fetch or store data
+  const [userData, setUserData] = useState({})
+  const putUserData = (userInfo) => {
+    setUserData(userInfo)
+  }
   return (
-    <UserContext.Provider value={[user, outroUser]}>
+    <UserContext.Provider value={{ userData, putUserData }}>
       {children}
     </UserContext.Provider>
   )

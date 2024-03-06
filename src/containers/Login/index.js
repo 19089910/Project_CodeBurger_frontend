@@ -20,9 +20,8 @@ import {
 } from './styles'
 
 function Login() {
-  // test exemple
-  const users = useUser()
-  console.log(users)
+  const { userData, putUserData } = useUser()
+  // console.log(userData)
 
   const schema = Yup.object().shape({
     email: Yup.string()
@@ -40,7 +39,7 @@ function Login() {
   } = useForm({ resolver: yupResolver(schema) })
 
   const onSubmit = async (clientData) => {
-    await toast.promise(
+    const { data } = await toast.promise(
       api.post('sessions', {
         email: clientData.email,
         password: clientData.password
@@ -51,7 +50,8 @@ function Login() {
         error: 'virifique seu e-mail e senha'
       }
     )
-    // await console.log(response) // respondeu
+    // console.log(data) // respondeu
+    putUserData(data)
   }
 
   return (
