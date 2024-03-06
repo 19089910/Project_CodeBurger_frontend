@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useContext, useEffect, useState } from 'react'
 
 const UserContext = createContext({})
 // context structure:
@@ -8,9 +8,21 @@ export const UserProvider = ({ children }) => {
   // state variable to serve as temporary storage
   // so the provider context can fetch or store data
   const [userData, setUserData] = useState({})
-  const putUserData = (userInfo) => {
+  // write to local stage
+  const putUserData = async (userInfo) => {
     setUserData(userInfo)
+    await localStorage.setItem('codeburger:userData', JSON.stringify(userInfo))
   }
+  // rescue on stage
+  useEffect(() => {
+    const loadUserData = async () => {
+      const clientInfo = await localStorage.getItem('codeburger:userData')
+      if (clientInfo) {
+        console.log(JSON.parse(clientInfo))
+      }
+    }
+    loadUserData()
+  }, [])
   return (
     <UserContext.Provider value={{ userData, putUserData }}>
       {children}
