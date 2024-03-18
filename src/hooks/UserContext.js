@@ -13,7 +13,7 @@ export const UserProvider = ({ children }) => {
     setUserData(userInfo)
     await localStorage.setItem('codeburger:userData', JSON.stringify(userInfo))
   }
-  // rescue on stage
+  // record to local stage
   useEffect(() => {
     const loadUserData = async () => {
       const clientInfo = await localStorage.getItem('codeburger:userData')
