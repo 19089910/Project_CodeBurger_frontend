@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import * as Yup from 'yup'
 
+import BannerRegister from '../../assets/banner-register.svg'
 import Logo from '../../assets/logo.svg'
-import RegisterBanner from '../../assets/register-banner.svg'
 import Button from '../../components/Button'
 import api from '../../services/api'
 import {
@@ -64,7 +64,7 @@ function Register() {
 
   return (
     <Container>
-      <RegisterImage src={RegisterBanner} alt="register-image" />
+      <RegisterImage src={BannerRegister} alt="register-image" />
       <ContainerItens>
         <img src={Logo} alt="logo-code-burger" />
         <h1>Login</h1>

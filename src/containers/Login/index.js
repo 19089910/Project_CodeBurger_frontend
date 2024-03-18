@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import * as Yup from 'yup'
 
-import LoginBanner from '../../assets/login-banner.svg'
+import BannerLogin from '../../assets/banner-login.svg'
 import Logo from '../../assets/logo.svg'
 import Button from '../../components/Button'
 import { useUser } from '../../hooks/UserContext'
@@ -57,7 +57,7 @@ function Login() {
 
   return (
     <Container>
-      <LoginImage src={LoginBanner} alt="login-image" />
+      <LoginImage src={BannerLogin} alt="login-image" />
       <ContainerItens>
         <img src={Logo} alt="logo-code-burger" />
         <h1>Login</h1>
