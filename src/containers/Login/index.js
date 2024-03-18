@@ -1,7 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import React from 'react'
 import { useForm } from 'react-hook-form'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import * as Yup from 'yup'
 
@@ -21,9 +21,8 @@ import {
 } from './styles'
 
 function Login() {
-  // eslint-disable-next-line no-unused-vars
-  const { userData, putUserData } = useUser()
-  // console.log(userData)
+  const navigate = useNavigate()
+  const { putUserData } = useUser()
 
   const schema = Yup.object().shape({
     email: Yup.string()
@@ -52,8 +51,12 @@ function Login() {
         error: 'virifique seu e-mail e senha'
       }
     )
-    // console.log(data) // respondeu
+
     putUserData(data)
+
+    setTimeout(() => {
+      navigate('/')
+    }, 1000)
   }
 
   return (
@@ -85,7 +88,7 @@ function Login() {
         </form>
         <SingInLink>
           Nâo possui conta?
-          <Link style={{ color: 'white' }} to="/cagastro">
+          <Link style={{ color: 'white' }} to="/cadastro">
             Sign Up
           </Link>
         </SingInLink>

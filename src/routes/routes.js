@@ -11,8 +11,8 @@ function App() {
     <Router>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route path="/cagastro" element={<Register />} />
-        <PrivateRoute path="/home" element={<Home />} />
+        <Route path="/cadastro" element={<Register />} />
+        <Route path="/" element={<Home />} />
       </Routes>
     </Router>
   )
