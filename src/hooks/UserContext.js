@@ -18,7 +18,7 @@ export const UserProvider = ({ children }) => {
     const loadUserData = async () => {
       const clientInfo = await localStorage.getItem('codeburger:userData')
       if (clientInfo) {
-        console.log(JSON.parse(clientInfo))
+        JSON.parse(clientInfo)
       }
     }
     loadUserData()

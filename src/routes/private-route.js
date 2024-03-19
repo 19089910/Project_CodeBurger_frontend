@@ -1,17 +1,9 @@
-import PropTypes from 'prop-types'
 import React from 'react'
-import { Route, Navigate } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router-dom'
 
-function PrivateRoute({ element, ...props }) {
+function PrivateRoute() {
   const user = localStorage.getItem('codeburger:userData')
-  if (!user) {
-    return <Navigate to="/login" />
-  }
-  return <Route {...props} element={element} />
+  return user ? <Outlet /> : <Navigate to="/login" />
 }
 
 export default PrivateRoute
-
-PrivateRoute.propTypes = {
-  element: PropTypes.oneOfType([PropTypes.func, PropTypes.element])
-}
