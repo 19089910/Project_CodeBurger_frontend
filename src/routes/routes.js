@@ -12,8 +12,8 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/cadastro" element={<Register />} />
-        <Route path="/" element={<PrivateRoute />}>
-          <Route index element={<Home />} />
+        <Route element={<PrivateRoute />}>
+          <Route path="/" index element={<Home />} />
         </Route>
       </Routes>
     </Router>
