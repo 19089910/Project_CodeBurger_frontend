@@ -7,6 +7,26 @@ export const Conteiner = styled.div`
   align-items: center;
   gap: 35px;
   padding: 35px 0;
+
+  /* square buttons */
+  .rec.rec-arrow {
+    background-color: #9758a6;
+    color: #efefef;
+  }
+
+  /* round buttons on hover */
+  .rec.rec-arrow:hover {
+    border: 2px solid #9758a6;
+    background-color: #efefef;
+    color: #9758a6;
+  }
+
+  /* hide disabled buttons */
+  .rec.rec-arrow:disabled {
+    border: nome;
+    background-color: #bebebf;
+    color: #efefef;
+  }
 `
 
 export const CategoryImage = styled.img``
