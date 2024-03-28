@@ -3,6 +3,7 @@ import Carousel from 'react-elastic-carousel'
 
 import LabelOffers from '../../assets/label-offers.png'
 import api from '../../services/api'
+import formatCurrency from '../../utils/formatCurrency'
 import { Conteiner, OffersImage, ConteinerItems, Image, Button } from './styles'
 
 function OffersCarousel() {
@@ -41,7 +42,7 @@ function OffersCarousel() {
             <ConteinerItems key={product.id}>
               <Image src={product.url} alt="foto da oferta" />
               <p>{product.name}</p>
-              <p>{product.price}</p>
+              <p>{formatCurrency(product.price)}</p>
               <Button>Peça agora</Button>
             </ConteinerItems>
           ))}
