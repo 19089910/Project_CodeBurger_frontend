@@ -22,3 +22,4 @@ export const CategoryButton = styled.button`
   line-height: 20px;
   padding-bottom: 5px;
 `
+export const ProductConteiner = styled.div``
