@@ -40,11 +40,15 @@ export function Products() {
   }, [])
 
   useEffect(() => {
-    const newFilteredProducts = products.filter(
-      (product) => product.category_id === activeCategory
-    )
+    if (activeCategory === 0) {
+      setFilteredProducts(products)
+    } else {
+      const newFilteredProducts = products.filter(
+        (product) => product.category_id === activeCategory
+      )
 
-    setFilteredProducts(newFilteredProducts)
+      setFilteredProducts(newFilteredProducts)
+    }
   }, [activeCategory, products])
 
   return (
