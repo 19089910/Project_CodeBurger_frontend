@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import BannerProduct from '../../assets/banner-product.svg'
 import CardProduct from '../../components/CardProduct'
 import api from '../../services/api'
+import formatCurrency from '../../utils/formatCurrency'
 import {
   Conteiner,
   ProductImage,
@@ -26,7 +27,11 @@ function Products() {
 
     async function loadProduct() {
       const { data } = await api.get('/products')
-      setProducts(data.products)
+
+      const newProducts = data.products.map((product) => {
+        return { ...product, formatedPrice: formatCurrency(product.price) }
+      })
+      setProducts(newProducts)
     }
 
     loadCategories()

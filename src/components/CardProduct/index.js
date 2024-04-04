@@ -10,7 +10,7 @@ function CardProduct({ product }) {
       <Image src={product.url} alt="imagem-do_produto" />
       <div>
         <ProductName>{product.name}</ProductName>
-        <ProductPrice>{product.price}</ProductPrice>
+        <ProductPrice>{product.formatedPrice}</ProductPrice>
         <Button>Adicionar</Button>
       </div>
     </Conteiner>
