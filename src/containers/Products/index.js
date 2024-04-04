@@ -10,7 +10,8 @@ function Products() {
     async function loadCategories() {
       const { data } = await api.get('/categories')
 
-      setCategories(data)
+      const newCategries = [{ id: 0, name: 'Todos' }, ...data.categories]
+      setCategories(newCategries)
     }
 
     loadCategories()
@@ -19,8 +20,8 @@ function Products() {
   return (
     <Conteiner>
       <ProductImage src={BannerProduct} alt="product-image" />
-      {Array.isArray(categories.categories) &&
-        categories.categories.map((category) => (
+      {categories &&
+        categories.map((category) => (
           <button key={category.id}>{category.name}</button>
         ))}
     </Conteiner>
