@@ -16,6 +16,7 @@ export function Products() {
   const [categories, setCategories] = useState([])
   const [products, setProducts] = useState([])
   const [activeCategory, setActiveCategory] = useState(0)
+  const [filteredProducts, setFilteredProducts] = useState([])
 
   useEffect(() => {
     async function loadCategories() {
@@ -38,6 +39,14 @@ export function Products() {
     loadProduct()
   }, [])
 
+  useEffect(() => {
+    const newFilteredProducts = products.filter(
+      (product) => product.category_id === activeCategory
+    )
+
+    setFilteredProducts(newFilteredProducts)
+  }, [activeCategory, products])
+
   return (
     <Conteiner>
       <ProductImage src={BannerProduct} alt="product-image" />
@@ -57,8 +66,8 @@ export function Products() {
           ))}
       </CategoryMenu>
       <ProductConteiner>
-        {products &&
-          products.map((product) => (
+        {filteredProducts &&
+          filteredProducts.map((product) => (
             <CardProduct key={product.id} product={product} />
           ))}
       </ProductConteiner>
