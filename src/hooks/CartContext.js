@@ -10,7 +10,7 @@ export const CartProvider = ({ children }) => {
   const [cartProducts, setCartProducts] = useState([]) // is a list of products
 
   // write or record on the local storage
-  const putProductsInCart = async (product) => {
+  const putProductInCart = async (product) => {
     console.log(product)
   }
 
@@ -26,7 +26,7 @@ export const CartProvider = ({ children }) => {
   }, [])
 
   return (
-    <CartContext.Provider value={{ cartProducts, putProductsInCart }}>
+    <CartContext.Provider value={{ cartProducts, putProductInCart }}>
       {children}
     </CartContext.Provider>
   )
