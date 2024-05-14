@@ -43,7 +43,7 @@ export const CartProvider = ({ children }) => {
   // capture or get user information in local storage
   useEffect(() => {
     const loadUserData = async () => {
-      const clientCartData = await localStorage.getItem('codeburger:CartInfo')
+      const clientCartData = await localStorage.getItem('codeburger:cartInfo')
       if (clientCartData) {
         setCartProducts(JSON.parse(clientCartData))
       }
