@@ -22,19 +22,21 @@ export const CartProvider = ({ children }) => {
      * else = deals with cases where there is no product in the cart
      * if = it's about adding quantity
      */
+    let newCartProducts = []
     if (cartIndex !== -1) {
-      const newCartProducts = cartProducts
+      newCartProducts = cartProducts
 
       newCartProducts[cartIndex].quantity += 1
       setCartProducts(newCartProducts)
     } else {
       product.quantity = 1
-      setCartProducts([...cartProducts, product])
+      newCartProducts = [...cartProducts, product]
+      setCartProducts(newCartProducts)
     }
 
     await localStorage.setItem(
       'codeburger:cartInfo',
-      JSON.stringify(cartProducts)
+      JSON.stringify(newCartProducts)
     )
   }
 
