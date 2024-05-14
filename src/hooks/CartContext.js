@@ -11,7 +11,31 @@ export const CartProvider = ({ children }) => {
 
   // write or record on the local storage
   const putProductInCart = async (product) => {
-    console.log(product)
+    /**
+     * if this product is already in cartProducts, i.e. it has already been placed in the cart...
+     * we'll use findIndex to search inside "cartProducts" if there is a "Product" which is the data
+     * of the product just clicked on... if there is, findIndex will give me the position of the CartProducts array.
+     */
+    const cartIndex = cartProducts.findIndex((prd) => prd.id === product.id)
+    /**
+     * "if" we can differentiate the -1, i.e. add a new product or just increase the quantity of the existing product.
+     * else = deals with cases where there is no product in the cart
+     * if = it's about adding quantity
+     */
+    if (cartIndex !== -1) {
+      const newCartProducts = cartProducts
+
+      newCartProducts[cartIndex].quantity += 1
+      setCartProducts(newCartProducts)
+    } else {
+      product.quantity = 1
+      setCartProducts([...cartProducts, product])
+    }
+
+    await localStorage.setItem(
+      'codeburger:cartInfo',
+      JSON.stringify(cartProducts)
+    )
   }
 
   // capture or get user information in local storage
