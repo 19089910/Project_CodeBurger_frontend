@@ -34,3 +34,9 @@ export const Body = styled.div`
     color: #000000;
   }
 `
+
+export const EmptyCart = styled.p`
+  padding: 20px;
+  text-align: center;
+  font-weight: bold;
+`
