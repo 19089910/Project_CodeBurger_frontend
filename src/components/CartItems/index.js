@@ -18,13 +18,17 @@ export function CartIteis() {
         <p>Total</p>
       </Header>
 
-      {cartProducts && cartProducts.lenght > 0 ? (
+      {cartProducts && cartProducts.length > 0 ? (
         cartProducts.map((product) => (
           <Body key={product.id}>
             <img src={product.url} />
             <p>{product.name}</p>
             <p>{formatCurrency(product.price)}</p>
-            <p>{product.quantity}</p>
+            <div className="quantity-container">
+              <button>-</button>
+              <p>{product.quantity}</p>
+              <button>+</button>
+            </div>
             <p>{formatCurrency(product.quantity * product.price)}</p>
           </Body>
         ))
