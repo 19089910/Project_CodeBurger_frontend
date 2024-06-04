@@ -40,6 +40,12 @@ export const CartProvider = ({ children }) => {
     )
   }
 
+  const deleteProdutcs = async (productId) => {
+    const newCart = cartProducts.filter((product) => (product.id = !productId))
+    setCartProducts(newCart)
+    await localStorage.setItem('codeburger:cartInfo', JSON.stringify(newCart))
+  }
+
   // funcition button increases the quantity of a specific product in the cart
   const increaseProducts = async (productId) => {
     const newCart = cartProducts.map((product) => {
@@ -62,6 +68,8 @@ export const CartProvider = ({ children }) => {
       })
       setCartProducts(newCart)
       await localStorage.setItem('codeburger:cartInfo', JSON.stringify(newCart))
+    } else {
+      deleteProdutcs()
     }
   }
 
