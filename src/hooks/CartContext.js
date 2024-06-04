@@ -40,8 +40,10 @@ export const CartProvider = ({ children }) => {
     )
   }
 
+  // funciton delete product of a specific product in the cart
   const deleteProdutcs = async (productId) => {
-    const newCart = cartProducts.filter((product) => (product.id = !productId))
+    // Creates a new array newCart that contains all the products in the cart, except the one whose ID matches the productId provided.
+    const newCart = cartProducts.filter((product) => product.id !== productId)
     setCartProducts(newCart)
     await localStorage.setItem('codeburger:cartInfo', JSON.stringify(newCart))
   }
