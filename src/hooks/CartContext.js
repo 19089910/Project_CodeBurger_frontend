@@ -40,15 +40,29 @@ export const CartProvider = ({ children }) => {
     )
   }
 
-  const increaseProducts = async (ProductId) => {
+  // funcition button increases the quantity of a specific product in the cart
+  const increaseProducts = async (productId) => {
     const newCart = cartProducts.map((product) => {
-      return product.id === ProductId
+      return product.id === productId
         ? { ...product, quantity: product.quantity + 1 }
         : product
     })
 
     setCartProducts(newCart)
     await localStorage.setItem('codeburger:cartInfo', JSON.stringify(newCart))
+  }
+  // funcition button decreases the quantity of a specific product in the cart
+  const decreaseProducts = async (productId) => {
+    const cartIndex = cartProducts.findIndex((pd) => pd.id === productId)
+    if (cartProducts[cartIndex].quantity > 1) {
+      const newCart = cartProducts.map((product) => {
+        return product.id === productId
+          ? { ...product, quantity: product.quantity - 1 }
+          : product
+      })
+      setCartProducts(newCart)
+      await localStorage.setItem('codeburger:cartInfo', JSON.stringify(newCart))
+    }
   }
 
   // capture or get user information in local storage
@@ -64,7 +78,12 @@ export const CartProvider = ({ children }) => {
 
   return (
     <CartContext.Provider
-      value={{ cartProducts, putProductInCart, increaseProducts }}
+      value={{
+        cartProducts,
+        putProductInCart,
+        increaseProducts,
+        decreaseProducts
+      }}
     >
       {children}
     </CartContext.Provider>

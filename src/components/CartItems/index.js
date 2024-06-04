@@ -5,7 +5,7 @@ import formatCurrency from '../../utils/formatCurrency'
 import { Conteiner, Header, Body, EmptyCart } from './styles'
 
 export function CartIteis() {
-  const { cartProducts } = useCart()
+  const { cartProducts, increaseProducts } = useCart()
   console.log(cartProducts)
 
   return (
@@ -27,7 +27,7 @@ export function CartIteis() {
             <div className="quantity-container">
               <button>-</button>
               <p>{product.quantity}</p>
-              <button>+</button>
+              <button onClick={() => increaseProducts(product.id)}>+</button>
             </div>
             <p>{formatCurrency(product.quantity * product.price)}</p>
           </Body>
