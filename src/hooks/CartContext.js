@@ -8,6 +8,10 @@ export const CartProvider = ({ children }) => {
   // state variable to serve as temporary storage
   // so the provider context can fetch or store data
   const [cartProducts, setCartProducts] = useState([]) // is a list of products
+  //
+  const updateLoalStorage = async (product) => {
+    await localStorage.setItem('codeburger:cartInfo', JSON.stringify(product))
+  }
 
   // write or record on the local storage
   const putProductInCart = async (product) => {
@@ -33,11 +37,7 @@ export const CartProvider = ({ children }) => {
       newCartProducts = [...cartProducts, product]
       setCartProducts(newCartProducts)
     }
-
-    await localStorage.setItem(
-      'codeburger:cartInfo',
-      JSON.stringify(newCartProducts)
-    )
+    await updateLoalStorage(newCartProducts)
   }
 
   // funciton delete product of a specific product in the cart
@@ -45,7 +45,7 @@ export const CartProvider = ({ children }) => {
     // Creates a new array newCart that contains all the products in the cart, except the one whose ID matches the productId provided.
     const newCart = cartProducts.filter((product) => product.id !== productId)
     setCartProducts(newCart)
-    await localStorage.setItem('codeburger:cartInfo', JSON.stringify(newCart))
+    await updateLoalStorage(newCart)
   }
 
   // funcition button increases the quantity of a specific product in the cart
@@ -57,7 +57,7 @@ export const CartProvider = ({ children }) => {
     })
 
     setCartProducts(newCart)
-    await localStorage.setItem('codeburger:cartInfo', JSON.stringify(newCart))
+    await updateLoalStorage(newCart)
   }
   // funcition button decreases the quantity of a specific product in the cart
   const decreaseProducts = async (productId) => {
@@ -69,7 +69,7 @@ export const CartProvider = ({ children }) => {
           : product
       })
       setCartProducts(newCart)
-      await localStorage.setItem('codeburger:cartInfo', JSON.stringify(newCart))
+      await updateLoalStorage(newCart)
     } else {
       deleteProdutcs()
     }
