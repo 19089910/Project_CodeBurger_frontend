@@ -8,7 +8,7 @@ export const CartProvider = ({ children }) => {
   // state variable to serve as temporary storage
   // so the provider context can fetch or store data
   const [cartProducts, setCartProducts] = useState([]) // is a list of products
-  //
+  // optimization: function to send to local stage
   const updateLoalStorage = async (product) => {
     await localStorage.setItem('codeburger:cartInfo', JSON.stringify(product))
   }
@@ -71,7 +71,7 @@ export const CartProvider = ({ children }) => {
       setCartProducts(newCart)
       await updateLoalStorage(newCart)
     } else {
-      deleteProdutcs()
+      deleteProdutcs(productId)
     }
   }
 
