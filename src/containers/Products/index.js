@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import BannerProduct from '../../assets/banner-product.svg'
-import { CardProduct } from '../../components'
+import { CardProduct, Header } from '../../components'
 import api from '../../services/api'
 import formatCurrency from '../../utils/formatCurrency'
 import {
@@ -53,6 +53,7 @@ export function Products() {
 
   return (
     <Conteiner>
+      <Header />
       <ProductImage src={BannerProduct} alt="product-image" />
       <CategoryMenu>
         {categories &&
