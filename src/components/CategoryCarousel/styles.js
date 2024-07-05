@@ -56,9 +56,9 @@ export const Button = styled.button`
   text-align: center;
   color: #ffffff;
 
-  cursor: poiter;
   &:hover {
     opacity: 0.8;
+    cursor: pointer;
   }
 
   &active {

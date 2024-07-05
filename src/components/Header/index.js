@@ -1,4 +1,5 @@
-import React, { useHistory } from 'react'
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import CartIcon from '../../assets/icon-cart.svg'
 import PersonIcon from '../../assets/icon-person.svg'
@@ -13,24 +14,18 @@ import {
 } from './styles'
 
 export function Header() {
-  const history = useHistory()
-
+  const navigate = useNavigate()
   return (
     <Conteiner>
       <ConteinerLeft>
-        <PageLink
-          onClick={() => history.push('/')}
-          style={{ color: '#9758a6' }}
-        >
+        <PageLink onClick={() => navigate('/')} style={{ color: '#9758a6' }}>
           Home
         </PageLink>
-        <PageLink onClick={() => history.push('/produtos')}>
-          Ver Produtos
-        </PageLink>
+        <PageLink onClick={() => navigate('/produtos')}>Ver Produtos</PageLink>
       </ConteinerLeft>
 
       <ConteinerRight>
-        <PageLink onClick={() => history.push('/carrinho')}>
+        <PageLink onClick={() => navigate('/carrinho')}>
           <img src={CartIcon} alt="icon-cart" />
         </PageLink>
         <Line />
