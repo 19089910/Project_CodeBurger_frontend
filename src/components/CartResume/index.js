@@ -12,13 +12,20 @@ export function CartResume() {
 
   const { cartProducts } = useCart()
 
+  // useEffect so that every time cartProducts is changed, i.e. by changing the quantity or deleting a product, useEffect modifies the variable...
   useEffect(() => {
+    /**
+     * 1. we need to take all the products in the cart,
+     * 2. multiply their values by the quantity (WE WILL USE REDUCE)
+     * 3. and add them up with the other products to give the price of the items
+     */
     const sumAllItems = cartProducts.reduce((acc, current) => {
       return current.price * current.quantity + acc
     }, 0)
     setItemsPrice(sumAllItems)
   }, [cartProducts])
 
+  // Sending a request to the API and storing it in mongoDB
   const submitOrder = async () => {
     const order = cartProducts.map((produts) => {
       return { id: produts.id, quantity: produts.quantity }
