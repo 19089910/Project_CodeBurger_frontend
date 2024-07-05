@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
+import api from '../../services/api'
 import formatCurrency from '../../utils/formatCurrency'
 import { Button } from '../Button'
 import { useCart } from './../../hooks/CartContext'
@@ -18,6 +19,13 @@ export function CartResume() {
     setItemsPrice(sumAllItems)
   }, [cartProducts])
 
+  const submitOrder = async () => {
+    const order = cartProducts.map((produts) => {
+      return { id: produts.id, quantity: produts.quantity }
+    })
+    await api.post('orders', { produts: order })
+  }
+
   return (
     <div>
       <Conteiner>
@@ -33,7 +41,12 @@ export function CartResume() {
           <p>{formatCurrency(itemsPrice + deliveryTax)}</p>
         </div>
       </Conteiner>
-      <Button style={{ width: '100%', marginTop: 30 }}>Finalizar pedido</Button>
+      <Button
+        style={{ width: '100%', marginTop: 30 }}
+        onClick={{ submitOrder }}
+      >
+        Finalizar pedido
+      </Button>
     </div>
   )
 }
