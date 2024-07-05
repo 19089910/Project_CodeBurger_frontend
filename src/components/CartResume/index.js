@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 
 import api from '../../services/api'
 import formatCurrency from '../../utils/formatCurrency'
@@ -30,7 +31,11 @@ export function CartResume() {
     const order = cartProducts.map((produts) => {
       return { id: produts.id, quantity: produts.quantity }
     })
-    await api.post('orders', { produts: order })
+    await toast.promise(api.post('orders', { produts: order }), {
+      pending: 'Realizado o seu pedido...',
+      success: 'Pedido realizado com sucesso',
+      error: 'Falha ao tentar realizar o seu pedido, tente novamente'
+    })
   }
 
   return (
