@@ -59,6 +59,7 @@ export const CartProvider = ({ children }) => {
     setCartProducts(newCart)
     await updateLoalStorage(newCart)
   }
+
   // funcition button decreases the quantity of a specific product in the cart
   const decreaseProducts = async (productId) => {
     const cartIndex = cartProducts.findIndex((pd) => pd.id === productId)
