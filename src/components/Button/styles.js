@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const ContainerButton = styled.button`
   // layout
   width: 180px;
-  height: 38px;
+  height: 50px;
   //margin-top: 75px;
   //margin-bottom: 25px;
   // style

@@ -31,7 +31,7 @@ export function CartResume() {
     const order = cartProducts.map((produts) => {
       return { id: produts.id, quantity: produts.quantity }
     })
-    await toast.promise(api.post('orders', { produts: order }), {
+    await toast.promise(api.post('orders', { products: order }), {
       pending: 'Realizado o seu pedido...',
       success: 'Pedido realizado com sucesso',
       error: 'Falha ao tentar realizar o seu pedido, tente novamente'
@@ -53,10 +53,7 @@ export function CartResume() {
           <p>{formatCurrency(itemsPrice + deliveryTax)}</p>
         </div>
       </Conteiner>
-      <Button
-        style={{ width: '100%', marginTop: 30 }}
-        onClick={{ submitOrder }}
-      >
+      <Button style={{ width: '100%', marginTop: 30 }} onClick={submitOrder}>
         Finalizar pedido
       </Button>
     </div>

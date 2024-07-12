@@ -1,5 +1,5 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 
 import CartIcon from '../../assets/icon-cart.svg'
 import PersonIcon from '../../assets/icon-person.svg'
@@ -15,13 +15,21 @@ import {
 
 export function Header() {
   const navigate = useNavigate()
+  const { pathname } = useLocation()
+  console.log(pathname)
+
   return (
     <Conteiner>
       <ConteinerLeft>
-        <PageLink onClick={() => navigate('/')} style={{ color: '#9758a6' }}>
+        <PageLink onClick={() => navigate('/')} isActive={pathname === '/'}>
           Home
         </PageLink>
-        <PageLink onClick={() => navigate('/produtos')}>Ver Produtos</PageLink>
+        <PageLink
+          onClick={() => navigate('/produtos')}
+          isActive={pathname.includes('produtos')}
+        >
+          Ver Produtos
+        </PageLink>
       </ConteinerLeft>
 
       <ConteinerRight>
