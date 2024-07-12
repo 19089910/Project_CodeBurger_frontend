@@ -26,8 +26,13 @@ export const UserProvider = ({ children }) => {
     loadUserData()
   }, [])
 
+  // funcition logout
+  const logout = async () => {
+    await localStorage.removeItem('codeburger:userData')
+  }
+
   return (
-    <UserContext.Provider value={{ userData, putUserData }}>
+    <UserContext.Provider value={{ userData, putUserData, logout }}>
       {children}
     </UserContext.Provider>
   )
