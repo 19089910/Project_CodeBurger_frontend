@@ -44,7 +44,7 @@ export function Header() {
         </PageLink>
         <Line />
 
-        <PageLink>
+        <PageLink onClick={() => navigate('/pedidos')}>
           <img src={PersonIcon} alt="icon-person" />
         </PageLink>
 
