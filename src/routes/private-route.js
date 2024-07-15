@@ -8,13 +8,20 @@ function PrivateRoute() {
   const location = useLocation()
 
   const isAdminPage = location.pathname === '/pedidos'
-  return user ? (
+
+  if (!user) {
+    return <Navigate to="/login" />
+  }
+
+  if (isAdminPage && !JSON.parse(user).admin) {
+    return <Navigate to="/" />
+  }
+
+  return (
     <>
       {!isAdminPage && <Header />}
       <Outlet />
     </>
-  ) : (
-    <Navigate to="/login" />
   )
 }
 
