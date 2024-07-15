@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 
 import BannerProduct from '../../assets/banner-product.svg'
 import { CardProduct } from '../../components'
@@ -13,11 +14,18 @@ import {
 } from './styles'
 
 export function Products() {
+  const { state } = useLocation()
+  let categoryId = 0
+  if (state?.categoryId) {
+    categoryId = state.categoryId
+  }
+
   const [categories, setCategories] = useState([])
   const [products, setProducts] = useState([])
-  const [activeCategory, setActiveCategory] = useState(0)
+  const [activeCategory, setActiveCategory] = useState(categoryId)
   const [filteredProducts, setFilteredProducts] = useState([])
 
+  // DATA LOADS
   useEffect(() => {
     async function loadCategories() {
       const { data } = await api.get('/categories')
@@ -39,6 +47,7 @@ export function Products() {
     loadProduct()
   }, [])
 
+  // PRODUCT FILTER MENU
   useEffect(() => {
     if (activeCategory === 0) {
       setFilteredProducts(products)
