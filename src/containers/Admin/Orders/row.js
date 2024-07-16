@@ -3,11 +3,9 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import Box from '@mui/material/Box'
 import Collapse from '@mui/material/Collapse'
 import IconButton from '@mui/material/IconButton'
-// import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
-// import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Typography from '@mui/material/Typography'
@@ -35,7 +33,6 @@ function Row({ row }) {
         <TableCell>{row.name}</TableCell>
         <TableCell>{row.date}</TableCell>
         <TableCell>{row.status}</TableCell>
-        <TableCell></TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -89,7 +86,7 @@ Row.propTypes = {
       PropTypes.shape({
         quantity: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
-        categoy: PropTypes.string.isRequired,
+        category: PropTypes.string.isRequired,
         url: PropTypes.string.isRequired
       })
     ).isRequired
