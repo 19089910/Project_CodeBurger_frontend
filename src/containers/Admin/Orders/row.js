@@ -12,6 +12,8 @@ import Typography from '@mui/material/Typography'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
 
+import { ProductsImg } from './styles'
+
 function Row({ row }) {
   const [open, setOpen] = useState(false)
 
@@ -59,7 +61,10 @@ function Row({ row }) {
                       <TableCell>{productRow.name}</TableCell>
                       <TableCell>{productRow.category}</TableCell>
                       <TableCell>
-                        <img src={productRow.url} alt="imagem-do-produto" />
+                        <ProductsImg
+                          src={productRow.url}
+                          alt="imagem-do-produto"
+                        />
                       </TableCell>
                     </TableRow>
                   ))}

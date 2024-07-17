@@ -7,6 +7,7 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import React, { useEffect, useState } from 'react'
 
+import formatData from '../../../utils/formatDate'
 import api from './../../../services/api'
 import Row from './row'
 import { Conteiner } from './styles'
@@ -30,7 +31,7 @@ function Orders() {
     return {
       name: order.user.name,
       orderId: order._id,
-      date: order.createdAt,
+      date: formatData(order.createdAt),
       status: order.status,
       product: order.products
     }
