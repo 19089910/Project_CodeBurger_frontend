@@ -1,5 +1,5 @@
 const formatData = (date) => {
-  new Date(date).toLocaleDateString('pt-br', {
+  return new Date(date).toLocaleDateString('pt-br', {
     year: '2-digit',
     month: 'short',
     day: '2-digit',

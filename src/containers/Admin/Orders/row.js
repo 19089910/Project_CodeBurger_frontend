@@ -11,11 +11,18 @@ import TableRow from '@mui/material/TableRow'
 import Typography from '@mui/material/Typography'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
+import Select from 'react-select'
 
+import api from '../../../services/api'
+import status from './order-status'
 import { ProductsImg } from './styles'
 
 function Row({ row }) {
   const [open, setOpen] = useState(false)
+
+  async function setNewStatus(id, status) {
+    await api.put(`orders/${id}`, { status })
+  }
 
   return (
     <React.Fragment>
@@ -34,7 +41,17 @@ function Row({ row }) {
         </TableCell>
         <TableCell>{row.name}</TableCell>
         <TableCell>{row.date}</TableCell>
-        <TableCell>{row.status}</TableCell>
+
+        <TableCell>
+          <Select
+            options={status}
+            placeholder="status"
+            menuPortalTarget={document.body}
+            defaultInputValue={
+              status.find((option) => option.value === row.status).value || null
+            }
+          />
+        </TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
