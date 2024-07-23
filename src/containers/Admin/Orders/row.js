@@ -11,17 +11,29 @@ import TableRow from '@mui/material/TableRow'
 import Typography from '@mui/material/Typography'
 import PropTypes from 'prop-types'
 import React, { useState } from 'react'
-import Select from 'react-select'
 
 import api from '../../../services/api'
 import status from './order-status'
-import { ProductsImg } from './styles'
+import { ProductsImg, ReactSelectStyle } from './styles'
 
 function Row({ row }) {
   const [open, setOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [selectedStatus, setSelectedStatus] = useState(
+    status.find((option) => option.value === row.status) || null
+  )
 
-  async function setNewStatus(id, status) {
-    await api.put(`orders/${id}`, { status })
+  async function setNewStatus(id, newStatus) {
+    setIsLoading(true)
+    try {
+      await api.put(`orders/${id}`, { status: newStatus })
+      // Updates the status locally to reflect the change
+      setSelectedStatus(status.find((option) => option.value === newStatus))
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -43,13 +55,17 @@ function Row({ row }) {
         <TableCell>{row.date}</TableCell>
 
         <TableCell>
-          <Select
+          <ReactSelectStyle
             options={status}
             placeholder="status"
             menuPortalTarget={document.body}
-            defaultInputValue={
-              status.find((option) => option.value === row.status).value || null
-            }
+            value={selectedStatus} // subsisted defaultInputValue
+            // defaultInputValue={
+            //  status.find((option) => option.value === row.status).value || null
+            // }
+            isSearchable={false}
+            isLoading={isLoading}
+            onChange={(newStatus) => setNewStatus(row.orderId, newStatus.value)} // mudança para o back
           />
         </TableCell>
       </TableRow>
