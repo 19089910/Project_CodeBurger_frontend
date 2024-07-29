@@ -6,7 +6,6 @@ import { Conteiner, Header, Body, EmptyCart } from './styles'
 
 export function CartIteis() {
   const { cartProducts, increaseProducts, decreaseProducts } = useCart()
-  console.log(cartProducts)
 
   return (
     <Conteiner>
