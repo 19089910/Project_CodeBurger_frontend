@@ -46,9 +46,14 @@ function Orders() {
   }, [filteredOrders]) // if you change the filter, check again the result of all this: row shows what the menu wants
 
   // Menu filter
+
+  const allstatusOpition = [
+    { id: 0, label: 'Todos', value: 'all' },
+    ...statusOpition
+  ]
   // the status that was clicked in the menu is arriving
   function handleStatus(statusOpition) {
-    if (statusOpition.value === 1) {
+    if (statusOpition.value === 'all') {
       setFilteredOrders(orders) // logic of everyone in the menu...
     } else {
       const newOrders = orders.filter(
@@ -61,7 +66,7 @@ function Orders() {
   return (
     <Conteiner>
       <Menu>
-        {statusOpition.map((statusOpition) => (
+        {allstatusOpition.map((statusOpition) => (
           <LinkMenu
             key={statusOpition.id}
             onClick={() => handleStatus(statusOpition)}
