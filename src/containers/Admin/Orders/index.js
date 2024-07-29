@@ -46,7 +46,6 @@ function Orders() {
   }, [filteredOrders]) // if you change the filter, check again the result of all this: row shows what the menu wants
 
   // Menu filter
-
   const allstatusOpition = [
     { id: 0, label: 'Todos', value: 'all' },
     ...statusOpition
