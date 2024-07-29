@@ -16,6 +16,7 @@ import { Conteiner, Menu, LinkMenu } from './styles'
 // get(orders)put(orders/id), post(product), put(producst/id)
 function Orders() {
   const [orders, setOrders] = useState([]) // all pedidos
+  const [filteredOrders, setFilteredOrders] = useState([]) //  filtered orders for the Menu
   const [rows, setRows] = useState([])
 
   // get(orders):
@@ -23,6 +24,7 @@ function Orders() {
     async function loadOrders() {
       const { data } = await api.get('orders')
       setOrders(data.orders) // format object to array
+      setFilteredOrders(data.orders) // orders copy, id est all copy
     }
     loadOrders()
   }, [])
@@ -39,15 +41,33 @@ function Orders() {
   }
   // teble controller
   useEffect(() => {
-    const newRows = orders.map((ord) => createData(ord))
+    const newRows = filteredOrders.map((ord) => createData(ord)) // I changed from: "all requests" to: "send the row the requests that the menu wants"
     setRows(newRows)
-  }, [orders])
+  }, [filteredOrders]) // if you change the filter, check again the result of all this: row shows what the menu wants
+
+  // Menu filter
+  // the status that was clicked in the menu is arriving
+  function handleStatus(statusOpition) {
+    if (statusOpition.value === 1) {
+      setFilteredOrders(orders) // logic of everyone in the menu...
+    } else {
+      const newOrders = orders.filter(
+        (order) => order.status === statusOpition.value
+      )
+      setFilteredOrders(newOrders) // have only the orders with the filter
+    }
+  }
 
   return (
     <Conteiner>
       <Menu>
         {statusOpition.map((statusOpition) => (
-          <LinkMenu key={statusOpition.id}>{statusOpition.label}</LinkMenu>
+          <LinkMenu
+            key={statusOpition.id}
+            onClick={() => handleStatus(statusOpition)}
+          >
+            {statusOpition.label}
+          </LinkMenu>
         ))}
       </Menu>
       <TableContainer component={Paper}>
