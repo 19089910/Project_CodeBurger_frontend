@@ -9,12 +9,13 @@ import React, { useEffect, useState } from 'react'
 
 import formatData from '../../../utils/formatDate'
 import api from './../../../services/api'
+import statusOpition from './order-status'
 import Row from './row'
-import { Conteiner } from './styles'
+import { Conteiner, Menu, LinkMenu } from './styles'
 // REVIEWING THE OPERATIONS THAT THE ADMIN IS GOING TO PERFORM.
 // get(orders)put(orders/id), post(product), put(producst/id)
 function Orders() {
-  const [orders, setOrders] = useState([])
+  const [orders, setOrders] = useState([]) // all pedidos
   const [rows, setRows] = useState([])
 
   // get(orders):
@@ -44,6 +45,11 @@ function Orders() {
 
   return (
     <Conteiner>
+      <Menu>
+        {statusOpition.map((statusOpition) => (
+          <LinkMenu key={statusOpition.id}>{statusOpition.label}</LinkMenu>
+        ))}
+      </Menu>
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
           <TableHead>
