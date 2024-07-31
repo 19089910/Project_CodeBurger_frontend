@@ -17,6 +17,7 @@ import { Conteiner, Menu, LinkMenu } from './styles'
 function Orders() {
   const [orders, setOrders] = useState([]) // all pedidos
   const [filteredOrders, setFilteredOrders] = useState([]) //  filtered orders for the Menu
+  const [activeStatus, setActiveStatus] = useState(0) // stores the id of who is active in the menu
   const [rows, setRows] = useState([])
 
   // get(orders):
@@ -60,6 +61,7 @@ function Orders() {
       )
       setFilteredOrders(newOrders) // have only the orders with the filter
     }
+    setActiveStatus(statusOpition.id)
   }
 
   return (
@@ -69,6 +71,7 @@ function Orders() {
           <LinkMenu
             key={statusOpition.id}
             onClick={() => handleStatus(statusOpition)}
+            isActiveStatus={activeStatus === statusOpition.id}
           >
             {statusOpition.label}
           </LinkMenu>
