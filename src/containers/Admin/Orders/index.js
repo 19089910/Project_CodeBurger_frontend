@@ -60,13 +60,13 @@ function Orders() {
       (order) => order.status === statusOpition[statusId - 1].value
     )
   }
-  // Função chamada ao selecionar um status no menu
+  // Function called when selecting a status from the menu
   function handleStatus(statusOpition) {
     const newFilteredOrders = filterOrdersByStatus(statusOpition.id)
     setFilteredOrders(newFilteredOrders)
     setActiveStatus(statusOpition.id)
   }
-  // Atualização automática quando "orders" muda
+  // Automatic update when "orders" change
   useEffect(() => {
     const newFilteredOrders = filterOrdersByStatus(activeStatus)
     setFilteredOrders(newFilteredOrders)
