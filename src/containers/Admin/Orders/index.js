@@ -51,36 +51,27 @@ function Orders() {
     { id: 0, label: 'Todos', value: 'all' },
     ...statusOpition
   ]
-  // the status that was clicked in the menu is arriving
-  function handleStatus(statusOpition) {
-    if (statusOpition.value === 'all') {
-      setFilteredOrders(orders) // logic of everyone in the menu...
-    } else {
-      const newOrders = orders.filter(
-        (order) => order.status === statusOpition.value
-      )
-      setFilteredOrders(newOrders) // have only the orders with the filter
+  // Function to apply the filter
+  function filterOrdersByStatus(statusId) {
+    if (statusId === 0) {
+      return orders
     }
+    return orders.filter(
+      (order) => order.status === statusOpition[statusId - 1].value
+    )
+  }
+  // Função chamada ao selecionar um status no menu
+  function handleStatus(statusOpition) {
+    const newFilteredOrders = filterOrdersByStatus(statusOpition.id)
+    setFilteredOrders(newFilteredOrders)
     setActiveStatus(statusOpition.id)
   }
-
-  // update filter
+  // Atualização automática quando "orders" muda
   useEffect(() => {
-    //!
-    if (activeStatus === 0) {
-      setFilteredOrders(orders) // logic of everyone in the menu...
-    } else {
-      const activeOpitionIndex = statusOpition.findIndex(
-        // activeOpitionIndex is index if idStatusOption === idActivestatus
-        (sts) => sts.id === activeStatus
-      )
-      const newFilteredOrders = orders.filter(
-        (ord) => ord.status === statusOpition[activeOpitionIndex].value
-      )
-      setFilteredOrders(newFilteredOrders)
-    }
+    const newFilteredOrders = filterOrdersByStatus(activeStatus)
+    setFilteredOrders(newFilteredOrders)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [orders]) //!
+  }, [orders])
 
   return (
     <Conteiner>
