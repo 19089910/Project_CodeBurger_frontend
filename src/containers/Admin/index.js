@@ -1,12 +1,13 @@
 import React from 'react'
 
+import { SideMenuAdmin } from '../../components'
 import Orders from './Orders'
 import { Conteiner } from './styles'
 
 export function Admin() {
   return (
     <Conteiner>
-      <h2>Admin</h2>
+      <SideMenuAdmin />
       <Orders />
     </Conteiner>
   )
