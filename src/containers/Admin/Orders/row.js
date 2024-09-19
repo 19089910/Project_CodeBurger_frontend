@@ -16,7 +16,7 @@ import api from '../../../services/api'
 import status from './order-status'
 import { ProductsImg, ReactSelectStyle } from './styles'
 
-function Row({ row }) {
+function Row({ row, orders, setOrders }) {
   const [open, setOpen] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [selectedStatus, setSelectedStatus] = useState(
@@ -29,6 +29,12 @@ function Row({ row }) {
       await api.put(`orders/${id}`, { status: newStatus })
       // Updates the status locally to reflect the change
       setSelectedStatus(status.find((option) => option.value === newStatus))
+      // update newStatus locally in setOrders in front end
+      const newOrders = orders.map((order) => {
+        //  will compare and look for the id of the status that was changed among the order statuses
+        return order._id === id ? { ...order, status: newStatus } : order
+      })
+      setOrders(newOrders)
     } catch (err) {
       console.log(err)
     } finally {
@@ -60,9 +66,6 @@ function Row({ row }) {
             placeholder="status"
             menuPortalTarget={document.body}
             value={selectedStatus} // subsisted defaultInputValue
-            // defaultInputValue={
-            //  status.find((option) => option.value === row.status).value || null
-            // }
             isSearchable={false}
             isLoading={isLoading}
             onChange={(newStatus) => setNewStatus(row.orderId, newStatus.value)} // mudança para o back
@@ -114,6 +117,8 @@ function Row({ row }) {
 export default Row
 
 Row.propTypes = {
+  orders: PropTypes.array,
+  setOrders: PropTypes.func,
   row: PropTypes.shape({
     name: PropTypes.string.isRequired,
     orderId: PropTypes.string.isRequired,

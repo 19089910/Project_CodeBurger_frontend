@@ -64,6 +64,24 @@ function Orders() {
     setActiveStatus(statusOpition.id)
   }
 
+  // update filter
+  useEffect(() => {
+    //!
+    if (activeStatus === 0) {
+      setFilteredOrders(orders) // logic of everyone in the menu...
+    } else {
+      const activeOpitionIndex = statusOpition.findIndex(
+        // activeOpitionIndex is index if idStatusOption === idActivestatus
+        (sts) => sts.id === activeStatus
+      )
+      const newFilteredOrders = orders.filter(
+        (ord) => ord.status === statusOpition[activeOpitionIndex].value
+      )
+      setFilteredOrders(newFilteredOrders)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [orders]) //!
+
   return (
     <Conteiner>
       <Menu>
@@ -90,7 +108,12 @@ function Orders() {
           </TableHead>
           <TableBody>
             {rows.map((row) => (
-              <Row key={row.orderId} row={row} />
+              <Row
+                key={row.orderId}
+                row={row}
+                setOrders={setOrders}
+                orders={orders}
+              />
             ))}
           </TableBody>
         </Table>

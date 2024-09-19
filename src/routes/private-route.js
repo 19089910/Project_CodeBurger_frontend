@@ -10,9 +10,9 @@ function PrivateRoute() {
 
   const isAdminPage = location.pathname === '/pedidos'
   const userData = JSON.parse(user)
-  const token = userData.token
+  const token = userData?.token
 
-  if (isTokenExpired(token)) {
+  if (!token || isTokenExpired(token)) {
     localStorage.removeItem('codeburger:userData')
     return <Navigate to="/login" />
   }
