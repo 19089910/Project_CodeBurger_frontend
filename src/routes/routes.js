@@ -14,7 +14,9 @@ function App() {
           <Route path="/" index element={<Home />} />
           <Route path="/produtos" index element={<Products />} />
           <Route path="/carrinho" index element={<Cart />} />
+
           <Route path="/pedidos" index element={<Admin />} />
+          <Route path="/listar-produtos" index element={<Admin />} />
         </Route>
       </Routes>
     </Router>
