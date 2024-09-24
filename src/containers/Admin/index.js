@@ -3,14 +3,16 @@ import React from 'react'
 import { SideMenuAdmin } from '../../components'
 import ListProducts from './ListProducts'
 // import Orders from './Orders'
-import { Conteiner } from './styles'
+import { Conteiner, ConteinerItems } from './styles'
 
 export function Admin() {
   return (
     <Conteiner>
       <SideMenuAdmin />
-      <ListProducts />
-      {/* <Orders /> */}
+      <ConteinerItems>
+        <ListProducts />
+        {/* <Orders /> */}
+      </ConteinerItems>
     </Conteiner>
   )
 }
