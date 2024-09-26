@@ -2,13 +2,15 @@ import React from 'react'
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
 
 import { Header } from '../components/Header'
+import paths from '../constants/paths'
 import isTokenExpired from './tokenExpired'
 
 function PrivateRoute() {
   const user = localStorage.getItem('codeburger:userData')
   const location = useLocation()
 
-  const isAdminPage = location.pathname === '/pedidos'
+  // Checking if the current pathname is present in the paths object values
+  const isAdminPage = Object.values(paths).includes(location.pathname)
   const userData = JSON.parse(user)
   const token = userData?.token
 

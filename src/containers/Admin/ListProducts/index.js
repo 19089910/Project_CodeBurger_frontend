@@ -1,3 +1,5 @@
+import CheckBoxIcon from '@mui/icons-material/CheckBox'
+import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault'
 import Paper from '@mui/material/Paper'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -8,10 +10,11 @@ import TableRow from '@mui/material/TableRow'
 import React, { useEffect, useState } from 'react'
 
 import api from '../../../services/api'
-import { Conteiner } from './styles'
+import formatCurrency from '../../../utils/formatCurrency'
+import { Conteiner, Img, EditIconStyles } from './styles'
 
 function ListProducts() {
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState()
 
   // get(products):
   useEffect(() => {
@@ -23,6 +26,13 @@ function ListProducts() {
     loadProducts()
   }, [])
 
+  function isOffer(offerStatus) {
+    if (offerStatus) {
+      return <CheckBoxIcon style={{ color: '#228b22' }} />
+    }
+    return <DisabledByDefaultIcon style={{ color: '#cc1717' }} />
+  }
+
   return (
     <Conteiner>
       <TableContainer component={Paper}>
@@ -31,30 +41,31 @@ function ListProducts() {
             <TableRow>
               <TableCell>Nome</TableCell>
               <TableCell>Preço</TableCell>
-              <TableCell>Produtos em oferta</TableCell>
-              <TableCell>imagem</TableCell>
+              <TableCell align="center">Produtos em oferta</TableCell>
+              <TableCell align="center">imagem do produto</TableCell>
               <TableCell>Editar</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {products.map((product) => (
-              <TableRow
-                key={product.id}
-                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {product.name}
-                </TableCell>
-                <TableCell>{product.price}</TableCell>
-                <TableCell>{product.offer}</TableCell>
-                <TableCell>
-                  <img src={product.url} alt="imagem-produto" />
-                </TableCell>
-                <TableCell>
-                  <button>Editar</button>
-                </TableCell>
-              </TableRow>
-            ))}
+            {products &&
+              products.map((product) => (
+                <TableRow
+                  key={product.id}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    {product.name}
+                  </TableCell>
+                  <TableCell>{formatCurrency(product.price)}</TableCell>
+                  <TableCell align="center">{isOffer(product.offer)}</TableCell>
+                  <TableCell align="center">
+                    <Img src={product.url} alt="imagem-produto" />
+                  </TableCell>
+                  <TableCell>
+                    <EditIconStyles />
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
