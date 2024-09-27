@@ -1,10 +1,12 @@
-import React from 'react'
+import CloudUploadIcon from '@mui/icons-material/CloudUpload'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import ReactSelect from 'react-select'
 
-import { Conteiner, Label, Input, ButtonStyles } from './styles'
+import { Conteiner, Label, Input, ButtonStyles, LabelUpload } from './styles'
 
 function NewProduct() {
+  const [fileName, setFileName] = useState(null)
   const {
     register,
     handleSubmit,
@@ -22,8 +24,22 @@ function NewProduct() {
         <Label>Preço</Label>
         <Input type="number" {...register('price')} />
 
-        <Label>upload da imagem</Label>
-        <Input type="file" accept="image/png,image/jpeg" />
+        <LabelUpload>
+          {fileName || (
+            <>
+              <CloudUploadIcon />
+              Carregue a imagem do produto
+            </>
+          )}
+          <input
+            type="file"
+            accept="image/png,image/jpeg"
+            {...register('file')}
+            onChange={(value) => {
+              setFileName(value.target.files[0]?.name)
+            }}
+          />
+        </LabelUpload>
 
         <ReactSelect />
 
