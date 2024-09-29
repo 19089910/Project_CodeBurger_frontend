@@ -16,8 +16,17 @@ function NewProduct() {
   const schema = Yup.object().shape({
     name: Yup.string().required('Digite o nome do produto'),
     price: Yup.string().required('Digite o Preço do produto'),
-    category: Yup.string().required('Escolha uma categoria')
-    // file: Yup.file().required('Envie uma imagem')
+    category: Yup.string().required('Escolha uma categoria'),
+    file: Yup.mixed()
+      .test('required', 'Carregue um arquivo', (value) => {
+        return value?.length > 0
+      })
+      .test('fileSize', 'Carregue arquivos de até 2mg', (value) => {
+        return value[0]?.size <= 200000
+      })
+      .test('type', 'Carregue apenas arquivos JPEG ou PNG', (value) => {
+        return value[0]?.type === 'image/jpeg' || value[0]?.type === 'image/png'
+      })
   })
 
   const {
@@ -49,40 +58,45 @@ function NewProduct() {
   return (
     <Conteiner>
       <form noValidate onSubmit={handleSubmit(onSubmit)}>
-        <Label>Nome</Label>
-        <Input type="text" {...register('name')} />
-        <ErrorMensage>{errors.name?.message}</ErrorMensage>
-
-        <Label>Preço</Label>
-        <Input type="text" {...register('name')} />
-        <ErrorMensage>{errors.name?.message}</ErrorMensage>
-        <LabelUpload>
-          {fileName || (
-            <>
-              <CloudUploadIcon />
-              Carregue a imagem do produto
-            </>
-          )}
-          <input
-            type="file"
-            accept="image/png,image/jpeg"
-            {...register('file')}
-            onChange={(value) => {
-              setFileName(value.target.files[0]?.name)
-            }}
+        <div>
+          <Label>Nome</Label>
+          <Input type="text" {...register('name')} />
+          <ErrorMensage>{errors.name?.message}</ErrorMensage>
+        </div>
+        <div>
+          <Label>Preço</Label>
+          <Input type="text" {...register('name')} />
+          <ErrorMensage>{errors.name?.message}</ErrorMensage>
+        </div>
+        <div>
+          <LabelUpload>
+            {fileName || (
+              <>
+                <CloudUploadIcon />
+                Carregue a imagem do produto
+              </>
+            )}
+            <input
+              type="file"
+              accept="image/png,image/jpeg"
+              {...register('file')}
+              onChange={(value) => {
+                setFileName(value.target.files[0]?.name)
+              }}
+            />
+          </LabelUpload>
+          <ErrorMensage>{errors.file?.message}</ErrorMensage>
+        </div>
+        <div>
+          <ReactSelect
+            {...selectField}
+            options={categories}
+            getOptionLabel={(category) => category.name}
+            getOptionValue={(category) => category.id}
+            placeholder="Categorias"
           />
-        </LabelUpload>
-        <ErrorMensage>{errors.file?.message}</ErrorMensage>
-
-        <ReactSelect
-          {...selectField}
-          options={categories}
-          getOptionLabel={(category) => category.name}
-          getOptionValue={(category) => category.id}
-          placeholder="Categorias"
-        />
-        <ErrorMensage>{errors.category?.message}</ErrorMensage>
-
+          <ErrorMensage>{errors.category?.message}</ErrorMensage>
+        </div>
         <ButtonStyles>Adicionar Produto</ButtonStyles>
       </form>
     </Conteiner>
