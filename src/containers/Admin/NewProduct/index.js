@@ -2,7 +2,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import React, { useEffect, useState } from 'react'
 import { useForm, useController } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import ReactSelect from 'react-select'
+import { toast } from 'react-toastify'
 import * as Yup from 'yup'
 
 import { ErrorMensage } from '../../../components'
@@ -12,6 +14,7 @@ import { Conteiner, Label, Input, ButtonStyles, LabelUpload } from './styles'
 function NewProduct() {
   const [fileName, setFileName] = useState(null)
   const [categories, setCategories] = useState([])
+  const navigate = useNavigate()
 
   const schema = Yup.object().shape({
     name: Yup.string().required('Digite o nome do produto'),
@@ -38,7 +41,7 @@ function NewProduct() {
     resolver: yupResolver(schema)
   })
 
-  // useController to use form with react-select
+  // useController to use hooks-form with react-select
   const {
     field: selectField // Using `field` to connect or ReactSelect
   } = useController({
@@ -48,8 +51,22 @@ function NewProduct() {
 
   const onSubmit = async (data) => {
     const productDataFormData = new FormData()
+    productDataFormData.append('name', data.name)
+    productDataFormData.append('price', data.price)
+    productDataFormData.append('category_id', data.category.id)
+    productDataFormData.append('file', data.file[0])
 
-    console.log(productDataFormData)
+    await toast.promise(
+      api.post('products', productDataFormData), // Remova o await daqui
+      {
+        pending: 'Criando um novo produto...',
+        success: 'Produto criado com sucesso!',
+        error: 'Falha ao criar o produto!'
+      }
+    )
+    setTimeout(() => {
+      navigate('/listar-produtos')
+    }, 2000)
   }
 
   useEffect(() => {
@@ -62,7 +79,7 @@ function NewProduct() {
 
   return (
     <Conteiner>
-      <form noValidate onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <Label>Nome</Label>
           <Input type="text" {...register('name')} />
