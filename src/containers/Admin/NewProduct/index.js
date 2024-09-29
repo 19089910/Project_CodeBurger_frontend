@@ -16,7 +16,7 @@ function NewProduct() {
   const schema = Yup.object().shape({
     name: Yup.string().required('Digite o nome do produto'),
     price: Yup.string().required('Digite o Preço do produto'),
-    category: Yup.string().required('Escolha uma categoria'),
+    category: Yup.object().required('Escolha uma categoria'),
     file: Yup.mixed()
       .test('required', 'Carregue um arquivo', (value) => {
         return value?.length > 0
@@ -38,14 +38,19 @@ function NewProduct() {
     resolver: yupResolver(schema)
   })
 
+  // useController to use form with react-select
   const {
-    field: selectField // Usando `field` para conectar o ReactSelect
+    field: selectField // Using `field` to connect or ReactSelect
   } = useController({
-    name: 'category_id', // Nome do campo
+    name: 'category', // Field name
     control
   })
 
-  const onSubmit = (data) => console.log(data)
+  const onSubmit = async (data) => {
+    const productDataFormData = new FormData()
+
+    console.log(productDataFormData)
+  }
 
   useEffect(() => {
     async function loadCategories() {
@@ -65,8 +70,8 @@ function NewProduct() {
         </div>
         <div>
           <Label>Preço</Label>
-          <Input type="text" {...register('name')} />
-          <ErrorMensage>{errors.name?.message}</ErrorMensage>
+          <Input type="number" {...register('price')} />
+          <ErrorMensage>{errors.price?.message}</ErrorMensage>
         </div>
         <div>
           <LabelUpload>
