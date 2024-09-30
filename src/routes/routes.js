@@ -19,6 +19,7 @@ function App() {
           <Route path={paths.Order} index element={<Admin />} />
           <Route path={paths.Products} index element={<Admin />} />
           <Route path={paths.NewProduct} index element={<Admin />} />
+          <Route path={paths.EditProducts} index element={<Admin />} />
         </Route>
       </Routes>
     </Router>

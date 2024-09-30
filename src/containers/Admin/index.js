@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 
 import { SideMenuAdmin } from '../../components'
 import paths from '../../constants/paths'
+import EditProduct from './EdtiProduct'
 import ListProducts from './ListProducts'
 import NewProduct from './NewProduct'
 import Orders from './Orders'
@@ -17,6 +18,7 @@ export function Admin() {
         {pathname === paths.Order && <Orders />}
         {pathname === paths.Products && <ListProducts />}
         {pathname === paths.NewProduct && <NewProduct />}
+        {pathname === paths.EditProducts && <EditProduct />}
       </ConteinerItems>
     </Conteiner>
   )
