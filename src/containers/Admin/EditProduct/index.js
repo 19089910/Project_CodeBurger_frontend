@@ -9,7 +9,14 @@ import * as Yup from 'yup'
 
 import { ErrorMensage } from '../../../components'
 import api from '../../../services/api'
-import { Conteiner, Label, Input, ButtonStyles, LabelUpload } from './styles'
+import {
+  Conteiner,
+  Label,
+  Input,
+  ButtonStyles,
+  LabelUpload,
+  ConteinerInput
+} from './styles'
 
 function EditProduct() {
   const [fileName, setFileName] = useState(null)
@@ -21,7 +28,8 @@ function EditProduct() {
   const schema = Yup.object().shape({
     name: Yup.string().required('Digite o nome do produto'),
     price: Yup.string().required('Digite o Preço do produto'),
-    category: Yup.object().required('Escolha uma categoria')
+    category: Yup.object().required('Escolha uma categoria'),
+    offer: Yup.bool()
   })
 
   const {
@@ -122,12 +130,15 @@ function EditProduct() {
           />
           <ErrorMensage>{errors.category?.message}</ErrorMensage>
         </div>
-        <input
-          type="checkbox"
-          {...register('offer')}
-          defaultChecked={product.offer}
-        ></input>
-        <ButtonStyles type="submit">Adicionar Produto</ButtonStyles>
+        <ConteinerInput>
+          <input
+            type="checkbox"
+            {...register('offer')}
+            defaultChecked={product.offer}
+          ></input>
+          <Label>Produto em oferta ?</Label>
+        </ConteinerInput>
+        <ButtonStyles type="submit">Editar Produto</ButtonStyles>
       </form>
     </Conteiner>
   )
