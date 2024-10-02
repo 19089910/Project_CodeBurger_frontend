@@ -16,9 +16,9 @@ function EditProduct() {
   const [categories, setCategories] = useState([])
   const navigate = useNavigate()
   const location = useLocation()
-  const Product = location.state?.product || {}
+  const product = location.state?.product || {}
 
-  console.log(Product)
+  console.log(product)
 
   const schema = Yup.object().shape({
     name: Yup.string().required('Digite o nome do produto'),
