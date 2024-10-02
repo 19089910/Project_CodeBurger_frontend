@@ -119,7 +119,7 @@ function NewProduct() {
           />
           <ErrorMensage>{errors.category?.message}</ErrorMensage>
         </div>
-        <ButtonStyles>Adicionar Produto</ButtonStyles>
+        <ButtonStyles type="submit">Adicionar Produto</ButtonStyles>
       </form>
     </Conteiner>
   )

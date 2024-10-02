@@ -18,22 +18,10 @@ function EditProduct() {
   const location = useLocation()
   const product = location.state?.product || {}
 
-  console.log(product)
-
   const schema = Yup.object().shape({
     name: Yup.string().required('Digite o nome do produto'),
     price: Yup.string().required('Digite o Preço do produto'),
-    category: Yup.object().required('Escolha uma categoria'),
-    file: Yup.mixed()
-      .test('required', 'Carregue um arquivo', (value) => {
-        return value?.length > 0
-      })
-      .test('fileSize', 'Carregue arquivos de até 2mg', (value) => {
-        return value[0]?.size <= 200000
-      })
-      .test('type', 'Carregue apenas arquivos JPEG ou PNG', (value) => {
-        return value[0]?.type === 'image/jpeg' || value[0]?.type === 'image/png'
-      })
+    category: Yup.object().required('Escolha uma categoria')
   })
 
   const {
@@ -50,7 +38,8 @@ function EditProduct() {
     field: selectField // Using `field` to connect or ReactSelect
   } = useController({
     name: 'category', // Field name
-    control
+    control,
+    defaultValue: product.category
   })
 
   const onSubmit = async (data) => {
@@ -59,13 +48,14 @@ function EditProduct() {
     productDataFormData.append('price', data.price)
     productDataFormData.append('category_id', data.category.id)
     productDataFormData.append('file', data.file[0])
+    productDataFormData.append('offer', data.offer)
 
     await toast.promise(
-      api.post('products', productDataFormData), // Remova o await daqui
+      api.put(`products/${product.id}`, productDataFormData),
       {
-        pending: 'Criando um novo produto...',
-        success: 'Produto criado com sucesso!',
-        error: 'Falha ao criar o produto!'
+        pending: 'Editando produto...',
+        success: 'Produto editado com sucesso!',
+        error: 'Falha ao editadar o produto!'
       }
     )
     setTimeout(() => {
@@ -86,12 +76,20 @@ function EditProduct() {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <Label>Nome</Label>
-          <Input type="text" {...register('name')} />
+          <Input
+            type="text"
+            {...register('name')}
+            defaultValue={product.name}
+          />
           <ErrorMensage>{errors.name?.message}</ErrorMensage>
         </div>
         <div>
           <Label>Preço</Label>
-          <Input type="number" {...register('price')} />
+          <Input
+            type="number"
+            {...register('price')}
+            defaultValue={product.price}
+          />
           <ErrorMensage>{errors.price?.message}</ErrorMensage>
         </div>
         <div>
@@ -120,10 +118,16 @@ function EditProduct() {
             getOptionLabel={(category) => category.name}
             getOptionValue={(category) => category.id}
             placeholder="Categorias"
+            defaultValue={product.category}
           />
           <ErrorMensage>{errors.category?.message}</ErrorMensage>
         </div>
-        <ButtonStyles>Adicionar Produto</ButtonStyles>
+        <input
+          type="checkbox"
+          {...register('offer')}
+          defaultChecked={product.offer}
+        ></input>
+        <ButtonStyles type="submit">Adicionar Produto</ButtonStyles>
       </form>
     </Conteiner>
   )
