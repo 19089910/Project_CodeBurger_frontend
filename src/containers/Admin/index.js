@@ -18,7 +18,7 @@ export function Admin() {
         {pathname === paths.Order && <Orders />}
         {pathname === paths.Products && <ListProducts />}
         {pathname === paths.NewProduct && <NewProduct />}
-        {pathname === paths.EditProducts && <EditProduct />}
+        {pathname === paths.EditProduct && <EditProduct />}
       </ConteinerItems>
     </Conteiner>
   )
