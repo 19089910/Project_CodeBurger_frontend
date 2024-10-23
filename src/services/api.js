@@ -1,7 +1,8 @@
 import axios from 'axios'
 
 export const apiCodeBurger = axios.create({
-  baseURL: 'http://localhost:3001'
+  baseURL: 'https://projectcodeburgerbackend-production.up.railway.app'
+  // 'http://localhost:3001'
 })
 
 // Adding an interceptor to add the JWT token to each API call
