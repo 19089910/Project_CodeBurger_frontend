@@ -67,6 +67,8 @@ export function Login() {
       <LoginImage src={BannerLogin} alt="login-image" />
       <ContainerItens>
         <img src={Logo} alt="logo-code-burger" />
+        <p>user adm: lucas@gmail.com</p>
+        <p>password: 123abc</p>
         <h1>Login</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Label>Email</Label>
