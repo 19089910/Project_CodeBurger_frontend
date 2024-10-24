@@ -66,6 +66,8 @@ export function Register() {
       <RegisterImage src={BannerRegister} alt="register-image" />
       <ContainerItens>
         <img src={Logo} alt="logo-code-burger" />
+        <p>user adm: lucas@gmail.com password:</p>
+        <p>assword: 123abc</p>
         <h1>Login</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Label>Nome</Label>
