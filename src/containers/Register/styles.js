@@ -13,13 +13,13 @@ export const Container = styled.div`
 `
 export const RegisterImage = styled.img`
   // layout
-  height: 90%;
+  height: 100%;
 `
 export const ContainerItens = styled.div`
   // layout
   background: #373737;
   border-radius: 0 10px 10px 0;
-  height: 90%;
+  height: 100%;
   // internally
   padding: 25px 75px;
   display: flex;

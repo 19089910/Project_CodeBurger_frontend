@@ -27,7 +27,7 @@ export const ContainerItens = styled.div`
   justify-content: center;
   h1 {
     // layout
-    margin-top: 30px;
+    margin-top: 0px;
     // typography
     color: #fff;
     font-size: 24px;
